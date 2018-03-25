@@ -3,15 +3,18 @@ const cheerio = require('cheerio');
 const qs = require('qs');
 
 let estateData = [];
-function ajaxProjects(pageNum=1) {
-  if(pageNum === 1){
+const basePath = 'http://171.221.172.13:8888/lottery/accept';
+
+function ajaxProjects(pageNum = 1) {
+  if (pageNum === 1) {
     estateData = [];
   }
   const data = qs.stringify({
     pageNo: pageNum,
     regioncode: '00'
   });
-  return axios.post('http://171.221.172.13:8888/lottery/accept/projectList', data)
+  return axios.post(basePath + '/projectList',
+    data)
     .then(data => {
       let ajaxNextPage = true;
       const $ = cheerio.load(data.data);
@@ -21,7 +24,7 @@ function ajaxProjects(pageNum=1) {
         const tds = $(item).find('td');
         const projectName = tds.eq(3).text();
         const status = tds.eq(10).text().trim();
-        if(status !== '报名结束'){
+        if (status !== '报名结束') {
           estateData.push({
             id: tds.eq(0).text(),
             name: projectName,
@@ -29,27 +32,33 @@ function ajaxProjects(pageNum=1) {
             count: tds.eq(6).text(),
             startTime: tds.eq(8).text(),
             endTime: tds.eq(9).text()
-          })
-        }else{
+          });
+        } else {
           ajaxNextPage = false;
           break;
         }
       }
-      if(ajaxNextPage){
-        ajaxProjects(pageNum+1);
+      if (ajaxNextPage) {
+        ajaxProjects(pageNum + 1);
       }
-      console.log(estateData);
     });
 }
 
-function ajaxDetail(id){
-  return axios.post('', qs.stringify({projectUuid:id}))
-    .then(data=>{
+function ajaxDetail(id) {
+  return axios.post(basePath + '/getProjectRule', qs.stringify({
+      projectUuid: id
+    }))
+    .then(data => {
       return data.data.message;
-    })
+    });
+}
+
+function getData() {
+  return estateData;
 }
 
 module.exports = {
   ajaxDetail,
-  ajaxProjects
+  ajaxProjects,
+  getData
 };
