@@ -6,9 +6,30 @@
 }
 .detail-row .title{
     float: left;
-    width: 125px;
+    width: 115px;
     margin-right: 5px;
 }
 .detail-row .value{
     float: left;
+}
+
+.info-panel {
+    z-index: 9999;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    max-height: 80%;
+    overflow: auto;
+}
+.item-panel{
+    background: rgba(256,256,256,0.8);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.result-card{
+    background: white;
+    margin: 10px 5px;
+    border-radius: 5px;
+    border: 1px solid #3385ff;
 }

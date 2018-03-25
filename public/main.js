@@ -1,8 +1,20 @@
 let _localTool;
 let _map;
 let _projects;
+let _projectType = 'enroll'; // 'enroll', 'complete'
+let _noSearchResult = [];
+let _searchCompleteCount = 0;
 initMap();
 getProject();
+
+$('#checkbox').on('change', e => {
+  if($('#checkbox').is(':checked')){
+    _projectType = 'complete';
+  }else{
+    _projectType = 'enroll';
+  }
+  getProject();
+});
 
 function initMap() {
   // 百度地图API功能
@@ -19,6 +31,7 @@ function initMap() {
   _map.setCurrentCity("成都");
   _localTool = new BMap.LocalSearch(_map, {
     onSearchComplete: (data) => {
+      _searchCompleteCount++;
       const result = data.tr[0];
       if (result) {
         const infoDom = getInfoDom(data.keyword);
@@ -28,7 +41,11 @@ function initMap() {
           openInfo(infoDom, this);
         });
       } else {
-        alert('搜索不到“ ' + data.keyword + ' ”');
+        _noSearchResult.push(data.keyword);
+        console.log('搜索不到“ ' + data.keyword + ' ”');
+      }
+      if (_searchCompleteCount === _projects.length) {
+        renderNoSearchView();
       }
     }
   });
@@ -73,15 +90,59 @@ function getInfoDom(projectName) {
 }
 
 function getProject() {
+  let url = '/projects';
+  if (_projectType === 'complete') {
+    url = '/completeProjects';
+  }
   $.ajax({
-    url: '/projects',
+    url,
     success: (data) => {
       _projects = data;
+      _noSearchResult = [];
+      _searchCompleteCount = 0;
+      _map.clearOverlays();
+      $('#resultBox').html('');
       data.forEach(item => {
         _localTool.search(item.name, {
           forceLocal: true
         });
       });
     }
+  });
+}
+
+function renderNoSearchView() {
+  const box$ = $('#resultBox');
+  console.log(_noSearchResult);
+  _noSearchResult.forEach(name => {
+    const project = _projects.filter(item => {
+      return name === item.name;
+    })[0];
+    box$.append(`
+      <div class="result-card">
+        <div class="detail-row">
+          <div class="title">项目名称：</div>
+          <div class="value">${project.name}</div>
+        </div>
+        <div class="detail-row">
+          <div class="title">住房套数：</div>
+          <div class="value">${project.count}</div>
+        </div>
+        <div class="detail-row">
+          <div class="title">登记开始时间：</div>
+          <div class="value">${project.startTime}</div>
+        </div>
+        <div class="detail-row">
+          <div class="title">登记结束时间：</div>
+          <div class="value">${project.endTime}</div>
+        </div>
+        <div class="detail-row">
+          <div class="title">登记规则：</div>
+          <div class="value">
+            <a target="_blank" href="/detail?id=${project.id}">查看</a>
+          </div>
+        </div>        
+      </div> 
+    `);
   });
 }

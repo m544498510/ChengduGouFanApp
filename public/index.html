@@ -1,18 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="./index.css">
     <style type="text/css">
-        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+        body, html, #allmap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+        body {
+            position: relative;
+        }
     </style>
     <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=9GPOR4FuN7OSoYTTANLEwfWW"></script>
     <title>成都房产摇号查询</title>
 </head>
 <body>
-<div id="allmap"></div>
+    <div id="allmap"></div>
+    <div class="info-panel">
+        <div class="item-panel">
+            <div>
+                <label id="checkboxLabel">
+                    <input type="checkbox" id="checkbox">
+                    <span >显示结束报名项目</span>
+                </label>
+            </div>
+        </div>
+        <div class="item-panel">
+            <div>未查询到位置的项目：</div>
+            <div id="resultBox"></div>
+        </div>
+    </div>
 </body>
 </html>
 <script type="text/javascript" src="main.js"></script>

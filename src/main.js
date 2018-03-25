@@ -19,6 +19,9 @@ const router = new Router();
 router.get('/projects', ctx => {
   ctx.body = estateData.getData();
 });
+router.get('/completeProjects', ctx => {
+  ctx.body = estateData.getCompleteData();
+});
 router.get('/detail', async ctx=>{
   ctx.body = await estateData.ajaxDetail(ctx.query.id);
 });
