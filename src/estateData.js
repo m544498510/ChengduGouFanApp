@@ -2,13 +2,13 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const qs = require('qs');
 
-let estateData = [];
+let registeringData = [];
 let completeData = [];
 const basePath = 'http://171.221.172.13:8888/lottery/accept';
 
 function ajaxProjects(pageNum = 1) {
   if (pageNum === 1) {
-    estateData = [];
+    registeringData = [];
     completeData = [];
   }
   const data = qs.stringify({
@@ -25,14 +25,18 @@ function ajaxProjects(pageNum = 1) {
         const projectObj = getProjectObj(tds);
         const status = projectObj.status;
         if (status !== '报名结束') {
-          estateData.push(projectObj);
+          registeringData.push(projectObj);
         } else {
           completeData.push(projectObj);
         }
       }
       if (trs.length > 0) {
-        ajaxProjects(pageNum + 1);
+        return ajaxProjects(pageNum + 1);
       }
+      return {
+        registeringData,
+        completeData
+      };
     });
 }
 
@@ -40,6 +44,7 @@ function getProjectObj(tds) {
   return {
     id: tds.eq(0).text(),
     name: tds.eq(3).text(),
+    area: tds.eq(2).text(),
     status: tds.eq(10).text().trim(),
     count: tds.eq(6).text(),
     startTime: tds.eq(8).text(),
@@ -57,16 +62,7 @@ function ajaxDetail(id) {
     });
 }
 
-function getData() {
-  return estateData;
-}
-function getCompleteData(){
-  return completeData;
-}
-
 module.exports = {
   ajaxDetail,
   ajaxProjects,
-  getData,
-  getCompleteData
 };

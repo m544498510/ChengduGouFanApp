@@ -72,6 +72,10 @@ function getInfoDom(projectName) {
         <div class="value">${project.count}</div>
       </div>
       <div class="detail-row">
+        <div class="title">区域：</div>
+        <div class="value">${project.area}</div>
+      </div>
+      <div class="detail-row">
         <div class="title">登记开始时间：</div>
         <div class="value">${project.startTime}</div>
       </div>
@@ -127,6 +131,10 @@ function renderNoSearchView() {
         <div class="detail-row">
           <div class="title">住房套数：</div>
           <div class="value">${project.count}</div>
+        </div>
+        <div class="detail-row">
+          <div class="title">区域：</div>
+          <div class="value">${project.area}</div>
         </div>
         <div class="detail-row">
           <div class="title">登记开始时间：</div>
