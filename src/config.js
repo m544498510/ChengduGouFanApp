@@ -2,11 +2,11 @@
 const port = 3000;
 const config = {
   email: {
-    user: 'xxx',
-    pass: 'xxxx'
+    user: '1030591923@qq.com',
+    pass: 'wztxyhugqfxhbcec'
   },
   port: port,
-  webServerPath: "0.0.0.0:" + port
+  webServerPath: "47.106.95.7:" + port
 };
 
 module.exports = config;
