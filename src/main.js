@@ -25,10 +25,7 @@ const server = app.listen(config.port, () => {
 
 cacheModule.getCacheFromFile();
 
-const rule = new schedule.RecurrenceRule();
-rule.hour = 9;
-
-schedule.scheduleJob(rule,()=>{
+schedule.scheduleJob("0 9 * * *",()=>{
   cacheModule.updateProjects();
   console.log('schedule start: ', new Date());
 });
