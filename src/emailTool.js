@@ -20,7 +20,7 @@ function sendEmail(to, subject, body){
     if(error){
       return console.log(error);
     }
-    console.log('Message sent: ' + info.response);
+    console.log('Message sent to '+ to +': ' + info.response);
   });
 }
 

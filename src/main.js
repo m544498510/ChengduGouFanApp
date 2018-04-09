@@ -25,7 +25,7 @@ const server = app.listen(config.port, () => {
 
 cacheModule.getCacheFromFile();
 
-schedule.scheduleJob("0 9 * * *",()=>{
-  cacheModule.updateProjects();
+schedule.scheduleJob("0 11 * * *", async ()=>{
+  await cacheModule.updateProjects();
   console.log('schedule start: ', new Date());
 });
