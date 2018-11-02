@@ -32,7 +32,7 @@ function initMap() {
   _localTool = new BMap.LocalSearch(_map, {
     onSearchComplete: (data) => {
       _searchCompleteCount++;
-      const result = data.Eq[0];
+      const result = data.Dq[0];
       if (result) {
         const infoDom = getInfoDom(data.keyword);
         const marker = new BMap.Marker(result.point);
