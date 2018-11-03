@@ -30,7 +30,7 @@ function ajaxProjects(pageNum = 1) {
           completeData.push(projectObj);
         }
       }
-      if (trs.length > 0) {
+      if (trs.length > 0 && pageNum < 10) {
         return ajaxProjects(pageNum + 1);
       }
       return {
