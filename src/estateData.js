@@ -4,7 +4,7 @@ const qs = require('qs');
 
 let registeringData = [];
 let completeData = [];
-const basePath = 'http://171.221.172.13:8888/lottery/accept';
+const basePath = 'https://gfdj.cdfgj.gov.cn//lottery/accept';
 
 function ajaxProjects(pageNum = 1) {
   if (pageNum === 1) {
