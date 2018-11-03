@@ -45,7 +45,7 @@ function getProjectObj(tds) {
     id: tds.eq(0).text(),
     name: tds.eq(3).text(),
     area: tds.eq(2).text(),
-    status: tds.eq(10).text().trim(),
+    status: tds.eq(11).text().trim(),
     count: tds.eq(6).text(),
     startTime: tds.eq(8).text(),
     endTime: tds.eq(9).text()
