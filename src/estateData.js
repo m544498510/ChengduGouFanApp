@@ -4,7 +4,7 @@ const qs = require('qs');
 
 let registeringData = [];
 let completeData = [];
-const basePath = 'https://gfdj.cdfgj.gov.cn//lottery/accept';
+const basePath = 'http://zw.cdzj.chengdu.gov.cn/lottery/accept';
 
 function ajaxProjects(pageNum = 1) {
   if (pageNum === 1) {
