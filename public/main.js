@@ -35,7 +35,7 @@ function initMap() {
       let result;
       for (let key in data){
         const tmp = data[key];
-        if(tmp && tmp.length && tmp.length > 0 && tmp[0].point){
+        if(tmp && tmp.length > 0 && tmp[0] && tmp[0].point){
           result = tmp[0];
           break;
         }
